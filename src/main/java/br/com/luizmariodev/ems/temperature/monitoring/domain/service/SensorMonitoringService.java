@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SensorMonitoringService {
 
-    private SensorMonitoringRepository repository;
+    private final SensorMonitoringRepository repository;
 
     public SensorMonitoringService(SensorMonitoringRepository repository) {
         this.repository = repository;
@@ -17,12 +17,7 @@ public class SensorMonitoringService {
 
     public SensorMonitoringOutput detail(SensorId id) {
         var optionalSensor = repository.findById(id);
-
-        if (optionalSensor.isPresent()) {
-            return convertEntityToOutput(optionalSensor.get());
-        }
-
-        return createResponseDefault(id);
+        return optionalSensor.map(this::convertEntityToOutput).orElseGet(() -> createResponseDefault(id));
     }
 
     private SensorMonitoringOutput convertEntityToOutput(SensorMonitoring sensorMonitoring) {
