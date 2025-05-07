@@ -1,35 +1,30 @@
 package br.com.luizmariodev.ems.temperature.monitoring.domain.model;
 
-import io.hypersistence.tsid.TSID;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.Objects;
+import java.util.UUID;
 
-@Getter
 @Embeddable
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Data
 @EqualsAndHashCode
-public class SensorId {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class TemperatureLogId {
 
-    private TSID value;
+    private UUID value;
 
-    public SensorId(TSID value) {
+    public TemperatureLogId(UUID value) {
         Objects.requireNonNull(value);
         this.value = value;
     }
 
-    public SensorId(Long value) {
+    public TemperatureLogId(String value) {
         Objects.requireNonNull(value);
-        this.value = TSID.from(value);
-    }
-
-    public SensorId(String value) {
-        Objects.requireNonNull(value);
-        this.value = TSID.from(value);
+        this.value = UUID.fromString(value);
     }
 
     @Override

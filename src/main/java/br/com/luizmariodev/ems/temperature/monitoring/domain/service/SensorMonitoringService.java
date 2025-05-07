@@ -20,6 +20,24 @@ public class SensorMonitoringService {
         return optionalSensor.map(this::convertEntityToOutput).orElseGet(() -> createResponseDefault(id));
     }
 
+    public void enable(SensorId sensorId) {
+        var optionalSensor = repository.findById(sensorId);
+
+        optionalSensor.ifPresent(sensor -> {
+            sensor.setEnabled(true);
+            repository.saveAndFlush(sensor);
+        });
+    }
+
+    public void disable(SensorId sensorId) {
+        var optionalSensor = repository.findById(sensorId);
+
+        optionalSensor.ifPresent(sensor -> {
+            sensor.setEnabled(false);
+            repository.saveAndFlush(sensor);
+        });
+    }
+
     private SensorMonitoringOutput convertEntityToOutput(SensorMonitoring sensorMonitoring) {
         var sensorMonitoringOutput = new SensorMonitoringOutput();
         sensorMonitoringOutput.setId(sensorMonitoring.getId().getValue());
@@ -38,21 +56,4 @@ public class SensorMonitoringService {
         return sensorMonitoringOutput;
     }
 
-    public void enable(SensorId sensorId) {
-        var optionalSensor = repository.findById(sensorId);
-
-        optionalSensor.ifPresent(sensor -> {
-            sensor.setEnabled(true);
-            repository.saveAndFlush(sensor);
-        });
-    }
-
-    public void disable(SensorId sensorId) {
-        var optionalSensor = repository.findById(sensorId);
-
-        optionalSensor.ifPresent(sensor -> {
-            sensor.setEnabled(false);
-            repository.saveAndFlush(sensor);
-        });
-    }
 }
