@@ -27,7 +27,7 @@ public class SensorMonitoringController {
     }
 
     @GetMapping
-    public SensorMonitoringOutput detailt(@PathVariable TSID sensorId) {
+    public SensorMonitoringOutput detail(@PathVariable TSID sensorId) {
         return service.detail(new SensorId(sensorId));
     }
 
