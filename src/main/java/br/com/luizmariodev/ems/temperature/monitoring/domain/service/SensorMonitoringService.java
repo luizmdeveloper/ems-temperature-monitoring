@@ -4,7 +4,12 @@ import br.com.luizmariodev.ems.temperature.monitoring.api.model.SensorMonitoring
 import br.com.luizmariodev.ems.temperature.monitoring.domain.model.SensorId;
 import br.com.luizmariodev.ems.temperature.monitoring.domain.model.SensorMonitoring;
 import br.com.luizmariodev.ems.temperature.monitoring.domain.repository.SensorMonitoringRepository;
+import io.hypersistence.tsid.TSID;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
+import java.util.Optional;
 
 @Service
 public class SensorMonitoringService {
@@ -38,6 +43,27 @@ public class SensorMonitoringService {
         });
     }
 
+    public Optional<SensorMonitoringOutput> findBySensorId(TSID id) {
+        var optionalSensor = repository.findById(new SensorId(id));
+
+        if (!optionalSensor.isEmpty()) {
+            return Optional.of(convertEntityToOutput(optionalSensor.get()));
+        }
+
+        return Optional.empty();
+    }
+
+    public void update(TSID sensorId, Double value, OffsetDateTime lastDate) {
+        var optionalSensor = repository.findById(new SensorId(sensorId));
+        optionalSensor.ifPresent(sensor -> {
+            if (sensor.isEnabled()) {
+                sensor.setLastTemparature(BigDecimal.valueOf(value));
+                sensor.setUpdateat(lastDate);
+                repository.save(sensor);
+            }
+        });
+    }
+
     private SensorMonitoringOutput convertEntityToOutput(SensorMonitoring sensorMonitoring) {
         var sensorMonitoringOutput = new SensorMonitoringOutput();
         sensorMonitoringOutput.setId(sensorMonitoring.getId().getValue());
@@ -55,5 +81,4 @@ public class SensorMonitoringService {
         sensorMonitoringOutput.setEnabled(false);
         return sensorMonitoringOutput;
     }
-
 }
