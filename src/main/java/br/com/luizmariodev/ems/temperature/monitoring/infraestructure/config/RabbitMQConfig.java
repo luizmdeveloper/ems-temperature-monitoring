@@ -23,14 +23,22 @@ public class RabbitMQConfig {
     @Value("${exchange.temperature.received}")
     private String exchangeReceived;
 
+    @Value("${queue.temperature.alerting}")
+    private String queueAlerting;
+
     @Bean
     public RabbitAdmin rabbitAdmin(ConnectionFactory connectionFactory) {
         return new RabbitAdmin(connectionFactory);
     }
 
     @Bean
-    public Queue queue() {
+    public Queue queueProcessing() {
         return QueueBuilder.durable(queueProcessing).build();
+    }
+
+    @Bean
+    public Queue queueAlerting() {
+        return QueueBuilder.durable(queueAlerting).build();
     }
 
     public FanoutExchange exchange() {
@@ -38,8 +46,13 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding binding() {
-        return BindingBuilder.bind(queue()).to(exchange());
+    public Binding bindingProcessing() {
+        return BindingBuilder.bind(queueProcessing()).to(exchange());
+    }
+
+    @Bean
+    public Binding bindingAlerting() {
+        return BindingBuilder.bind(queueAlerting()).to(exchange());
     }
 
     @Bean

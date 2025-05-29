@@ -1,6 +1,6 @@
 package br.com.luizmariodev.ems.temperature.monitoring.api.controller;
 
-import br.com.luizmariodev.ems.temperature.monitoring.api.model.SensorMonitoringOutput;
+import br.com.luizmariodev.ems.temperature.monitoring.api.model.output.SensorMonitoringOutput;
 import br.com.luizmariodev.ems.temperature.monitoring.domain.model.SensorId;
 import br.com.luizmariodev.ems.temperature.monitoring.domain.service.SensorMonitoringService;
 import io.hypersistence.tsid.TSID;

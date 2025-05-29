@@ -1,7 +1,5 @@
 package br.com.luizmariodev.ems.temperature.monitoring.domain.service;
 
-import br.com.luizmariodev.ems.temperature.monitoring.api.model.SensorMonitoringOutput;
-import br.com.luizmariodev.ems.temperature.monitoring.domain.model.SensorId;
 import br.com.luizmariodev.ems.temperature.monitoring.infraestructure.listener.message.TemperatureLogMessage;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -9,12 +7,12 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class TemperaturRegisterService {
+public class TemperatureRegisterService {
 
     private final SensorMonitoringService sensorMonitoringService;
     private final TemperatureLogService temperatureLogService;
 
-    public TemperaturRegisterService(SensorMonitoringService sensorMonitoringService, TemperatureLogService temperatureLogService) {
+    public TemperatureRegisterService(SensorMonitoringService sensorMonitoringService, TemperatureLogService temperatureLogService) {
         this.sensorMonitoringService = sensorMonitoringService;
         this.temperatureLogService = temperatureLogService;
     }

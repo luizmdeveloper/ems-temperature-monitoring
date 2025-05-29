@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `logs` (
     `id` CHAR(36) NOT NULL PRIMARY KEY,
-    `value` NUMERIC(15,2) NOT NULL,
+    `temperature` NUMERIC(15,2) NOT NULL,
     `registered_at` DATETIME NOT NULL,
     `sensor_id` BIGINT NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=UTF8;

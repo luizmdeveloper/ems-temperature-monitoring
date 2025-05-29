@@ -1,4 +1,4 @@
-package br.com.luizmariodev.ems.temperature.monitoring.api.model;
+package br.com.luizmariodev.ems.temperature.monitoring.api.model.output;
 
 import io.hypersistence.tsid.TSID;
 import lombok.Data;

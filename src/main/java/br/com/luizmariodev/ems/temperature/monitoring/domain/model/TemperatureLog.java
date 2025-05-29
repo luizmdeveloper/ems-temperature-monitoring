@@ -6,8 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
 @Entity
@@ -16,10 +16,11 @@ import java.time.OffsetDateTime;
 public class TemperatureLog {
 
     @Id
+    @EqualsAndHashCode.Include
     @AttributeOverride(name = "value", column = @Column(name = "id", columnDefinition = "uuid"))
     private TemperatureLogId id;
 
-    private BigDecimal value;
+    private Double temperature;
     private OffsetDateTime registeredAt;
 
     @AttributeOverride(name = "value", column = @Column(name = "sensor_id", columnDefinition = "bigint"))

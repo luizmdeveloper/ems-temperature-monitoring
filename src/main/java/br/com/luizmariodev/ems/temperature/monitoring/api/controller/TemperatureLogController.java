@@ -1,6 +1,6 @@
 package br.com.luizmariodev.ems.temperature.monitoring.api.controller;
 
-import br.com.luizmariodev.ems.temperature.monitoring.api.model.TemperatureLogOutput;
+import br.com.luizmariodev.ems.temperature.monitoring.api.model.output.TemperatureLogOutput;
 import br.com.luizmariodev.ems.temperature.monitoring.domain.service.TemperatureLogService;
 import io.hypersistence.tsid.TSID;
 import org.springframework.data.domain.Page;

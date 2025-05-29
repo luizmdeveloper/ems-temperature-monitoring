@@ -1,6 +1,6 @@
 package br.com.luizmariodev.ems.temperature.monitoring.domain.service;
 
-import br.com.luizmariodev.ems.temperature.monitoring.api.model.TemperatureLogOutput;
+import br.com.luizmariodev.ems.temperature.monitoring.api.model.output.TemperatureLogOutput;
 import br.com.luizmariodev.ems.temperature.monitoring.domain.model.SensorId;
 import br.com.luizmariodev.ems.temperature.monitoring.domain.model.TemperatureLog;
 import br.com.luizmariodev.ems.temperature.monitoring.domain.model.TemperatureLogId;
@@ -10,8 +10,6 @@ import io.hypersistence.tsid.TSID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 
 @Service
 public class TemperatureLogService {
@@ -38,7 +36,7 @@ public class TemperatureLogService {
     public void save(TemperatureLogMessage temperatureLogMessage) {
         var temperatureLog = new TemperatureLog();
         temperatureLog.setId(new TemperatureLogId(temperatureLogMessage.getId()));
-        temperatureLog.setValue(BigDecimal.valueOf(temperatureLogMessage.getValue()));
+        temperatureLog.setTemperature(temperatureLogMessage.getValue());
         temperatureLog.setRegisteredAt(temperatureLogMessage.getRegisteredAt());
         temperatureLog.setSensorId(new SensorId(temperatureLogMessage.getSensorId()));
         repository.save(temperatureLog);
